@@ -1,0 +1,58 @@
+var boardtime = box().append().size(300,610);
+var boardmain = box().append().size(610);
+box().append().size(300,610);
+var player =1;
+var redtime=60;
+var bluetime=60;
+box().appendTo(boardtime).size("100%",40).text("Time").textSize(20).padding(5).marginBottom(160);
+var timered = box().appendTo(boardtime).size(300,80).marginBottom(10);
+var timeblue = box().appendTo(boardtime).size(300,80);
+box().appendTo(timered).size(80).color("red");
+var redtimebox = box().appendTo(timered).size(210,80).timer(downRed,1000).text(redtime).textSize(30).padding(15);
+box().appendTo(timeblue).size(80).color("blue");
+var bluetimebox = box().appendTo(timeblue).size(210,80).text(bluetime).textSize(30).padding(15);
+var a2 =  new Array();
+for(j=0; j<20; j++){
+    a2[j] = new Array(20);
+}
+
+for(var i=0;i<20;i++){
+    for(var j=0;j<20;j++){
+        box().appendTo(boardmain).size(30).margin(0).click(onclick);
+    }   
+}
+function onclick(bx){
+    if(bx.color()!="red"&&bx.color()!="blue")
+    if(player==1){
+        redtimebox.clearTimer();
+        redtime=60;
+        bx.color("red");
+        player=2;
+       bluetimebox.timer(downblue,1000);
+    }
+    else if(player==2){
+        bluetimebox.clearTimer();
+         bluetime=60;
+        bx.color("blue");
+        player=1;
+        redtimebox.timer(downRed,1000);
+    }
+}
+function downRed(){
+    redtime--;
+    redtimebox.text(redtime);
+    if(redtime==0){
+        redtimebox.clearTimer();
+        player=2;
+        redtime=60;
+    }
+}
+function downblue(){
+     bluetime--;
+    bluetimebox.text(bluetime);
+    if(bluetime==0){
+        bluetimebox.clearTimer();
+        player=1;
+        bluetime=60;
+    }
+}
